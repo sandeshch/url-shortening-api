@@ -46,7 +46,7 @@ public class UserRegistrationServiceImplTest {
 		
 		boolean isDuplicate  =userRegistrationService.isDuplicateUser(accountId);
 		
-		assertTrue(!isDuplicate);
+		assertTrue(isDuplicate);
 
 	}
 
@@ -57,7 +57,7 @@ public class UserRegistrationServiceImplTest {
 		
 		boolean isValidUser  =userRegistrationService.isValidUser(accountId);
 		
-		assertTrue(!isValidUser);
+		assertTrue(isValidUser);
 
 	}
 

@@ -20,6 +20,10 @@ import com.shorten.url.repository.UrlRepository;
 import com.shorten.url.service.UniqueKeyGenerationService;
 import com.shorten.url.service.UrlShorteningService;
 
+/**
+ * @author Sandesh
+ *
+ */
 @Service
 public class UrlShorteningServiceImpl implements UrlShorteningService {
 
@@ -35,6 +39,9 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 	@Autowired
 	UniqueKeyGenerationService uniqueKeyGenerationService;
 	
+	/* (non-Javadoc)
+	 * @see com.shorten.url.service.UrlShorteningService#registerUrlService(com.shorten.url.dto.RegistrationRequest, javax.servlet.http.HttpServletRequest)
+	 */
 	@Override
 	public String registerUrlService(RegistrationRequest request, HttpServletRequest servletRequest) throws UnknownHostException {
 		
@@ -61,6 +68,9 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.shorten.url.service.UrlShorteningService#getStaticService(java.lang.String)
+	 */
 	@Override
 	public Map<String, Long> getStaticService(String accountId) {
 		Map<String,Long> statMap=null;
@@ -79,6 +89,10 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 		return statMap;
 	}
 	
+	/**
+	 * @param urlBase
+	 * @return
+	 */
 	public Url checkDuplicateRegistration(String urlBase){
 		
 		Url url=urlRepository.findByLongUrl(urlBase);
@@ -90,6 +104,9 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.shorten.url.service.UrlShorteningService#retrieveLongUrl(java.lang.String)
+	 */
 	@Override
 	public Url retrieveLongUrl(String shortUrl) {
 		
