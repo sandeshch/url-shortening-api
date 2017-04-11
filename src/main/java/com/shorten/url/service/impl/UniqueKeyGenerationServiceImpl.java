@@ -8,6 +8,11 @@ import com.shorten.url.domain.Url;
 import com.shorten.url.repository.UrlRepository;
 import com.shorten.url.service.UniqueKeyGenerationService;
 
+/**
+ * Class for generating Unique Keys which will be used to identify Short URL
+ * @author Sandeshch
+ *
+ */
 @Service
 public class UniqueKeyGenerationServiceImpl implements UniqueKeyGenerationService{
 

@@ -22,6 +22,8 @@ import com.shorten.url.service.UrlShorteningService;
 
 /**
  * @author Sandesh
+ * 
+ * Service IMPL for URl shortening
  *
  */
 @Service
@@ -48,10 +50,12 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 		String longUrl=request.getUrl();
 		String shortUrl;
 		InetAddress ip;
+		//check if URL is already registered.
 		Url url=urlRepository.findByLongUrl(longUrl);
 		ip =InetAddress.getLocalHost();
 		ip.getHostAddress();
 		if(null==url){
+			//generate alphanumeric string of length six digit
 			shortUrl=uniqueKeyGenerationService.generateUniqueKey();
 			Url finalUrl=new Url();
 			finalUrl.setAccountId(servletRequest.getHeader("accountId"));
@@ -61,9 +65,14 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 			finalUrl.setShortUrl(shortUrl);
 			Url savedUrl=urlRepository.save(finalUrl);
 		}else{
+			//return the same URL if already present in DB
 			shortUrl=url.getShortUrl();
 		}
-			return shortUrl = env.getProperty("protocol") + ip.getHostAddress() + ":" + env.getProperty("server.port")+"/"+shortUrl;
+		
+		/*return complete URL which will be used by user.
+		* protocol - HTTPS/HTTP and server.port will be retrieved from application.properties file
+		*/
+		return shortUrl = env.getProperty("protocol") + ip.getHostAddress() + ":" + env.getProperty("server.port")+"/"+shortUrl;
 		
 		
 	}
@@ -74,9 +83,10 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 	@Override
 	public Map<String, Long> getStaticService(String accountId) {
 		Map<String,Long> statMap=null;
-		
+		//Retrieve the list of URL which are registered against User
 		List<Url> urls=urlRepository.findAllByAccountId(accountId);
 		if(null!=urls){
+			// Map the URLs and Hits as Key value pair in HashMap<String,Long>
 			statMap=new HashMap<>();
 			for(Url url :urls){
 				logger.info("Url found {}",url.getLongUrl());
@@ -89,21 +99,6 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 		return statMap;
 	}
 	
-	/**
-	 * @param urlBase
-	 * @return
-	 */
-	private Url checkDuplicateRegistration(String urlBase){
-		
-		Url url=urlRepository.findByLongUrl(urlBase);
-		
-		if(null!=url)
-			return url;
-		return null;
-		
-		
-	}
-
 	/* (non-Javadoc)
 	 * @see com.shorten.url.service.UrlShorteningService#retrieveLongUrl(java.lang.String)
 	 */

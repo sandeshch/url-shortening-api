@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shorten.url.domain.Url;
 import com.shorten.url.service.UrlShorteningService;
 
+/**
+ * @author L072426
+ *
+ *REST Resource for Redirection.
+ *
+ */
 @RestController
 public class RedirectionResource {
 	
@@ -24,6 +30,14 @@ public class RedirectionResource {
 	@Autowired
 	UrlShorteningService urlShorteningService;
 
+	/**
+	 * Redirection method which takes short URL as parameter, retrieves corresponding Long URL and redirects. 
+	 * 
+	 * @param shortUrl
+	 * @param response
+	 * @throws URISyntaxException
+	 * @throws IOException
+	 */
 	@GetMapping(value = "/{shortUrl}", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
 	public void redirectUrl(@PathVariable String shortUrl,
 			HttpServletResponse response) throws URISyntaxException,
@@ -33,6 +47,7 @@ public class RedirectionResource {
 
 		Url url = urlShorteningService.retrieveLongUrl(shortUrl);
 		logger.info("Redirection Type from DB{}",url.getRedirectionType());
+		//Setting status as saved in DB at the time of URL registration.
 		response.setStatus(url.getRedirectionType());
 		response.setHeader("Location", url.getLongUrl());
 	}

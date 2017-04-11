@@ -18,6 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.shorten.url.service.UserRegistrationService;
 
+/**
+ * Pre Access filter for checking the URLs which need Authorization.
+ * Authorization is done on the basis of accountId which passed as a part of header named "accountId"
+ * @author sandeshch
+ *
+ */
 @WebFilter(filterName="preAccessFilter",urlPatterns = { "/tiny/register", "/tiny/statistic" })
 public class PreAccessFilter implements Filter {
 	

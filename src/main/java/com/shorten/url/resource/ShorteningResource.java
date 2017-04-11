@@ -24,6 +24,11 @@ import com.shorten.url.dto.RegistrationResponse;
 import com.shorten.url.service.UrlShorteningService;
 import com.shorten.url.service.UserRegistrationService;
 
+/**
+ * Resource for APIs of Users account and URL registration . 
+ * @author Sandesh
+ *
+ */
 @RestController
 @RequestMapping(value = "/tiny")
 public class ShorteningResource {
@@ -34,6 +39,11 @@ public class ShorteningResource {
 	@Autowired
 	UrlShorteningService urlShorteningService;
 
+	/**
+	 * API for registering new User
+	 * @param request
+	 * @return response with status and password
+	 */
 	@PostMapping(value = "/account", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public AccountResponse registerAccount(@NotNull @RequestBody AccountRequest request) {
 
@@ -44,6 +54,13 @@ public class ShorteningResource {
 		return response;
 	}
 
+	/**
+	 * Method for registering new URL.
+	 * @param request
+	 * @param servletRequest
+	 * @return
+	 * @throws UnknownHostException if InetAdderss is not able to resolve the IP address
+	 */
 	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public RegistrationResponse registerUrl(
 			@NotNull @RequestBody RegistrationRequest request,
@@ -54,6 +71,11 @@ public class ShorteningResource {
 		return response;
 	}
 
+	/**
+	 * API for getting statics of the All the URLs which are registered against user
+	 * @param accountId
+	 * @return
+	 */
 	@GetMapping(value = "/statistic/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String,Long> getStatistics(
 			@PathVariable("accountId") String accountId) {
