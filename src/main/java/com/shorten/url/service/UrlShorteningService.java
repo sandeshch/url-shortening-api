@@ -16,4 +16,5 @@ public interface UrlShorteningService {
 	
 	public Url retrieveLongUrl(String shortUrl);
 	
+	
 }

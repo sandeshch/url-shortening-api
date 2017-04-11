@@ -93,7 +93,7 @@ public class UrlShorteningServiceImpl implements UrlShorteningService {
 	 * @param urlBase
 	 * @return
 	 */
-	public Url checkDuplicateRegistration(String urlBase){
+	private Url checkDuplicateRegistration(String urlBase){
 		
 		Url url=urlRepository.findByLongUrl(urlBase);
 		
